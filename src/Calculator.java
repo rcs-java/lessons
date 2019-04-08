@@ -13,29 +13,21 @@ public class Calculator {
     }
 
     public double calculate() {
-        double result;
         switch (operator) {
             case "!":
-                result = factorial(number1);
-                break;
+                return factorial(number1);
             case "+":
-                result = sum(number1, number2);
-                break;
+                return sum(number1, number2);
             case "-":
-                result = subtract(number1, number2);
-                break;
+                return subtract(number1, number2);
             case "*":
-                result = multiply(number1, number2);
-                break;
+                return multiply(number1, number2);
             case "/":
-                result = divide(number1, number2);
-                break;
+                return divide(number1, number2);
             default:
                 System.out.println("Invalid operation!");
                 return 0;
         }
-
-        return result;
     }
 
     private double sum(double first, double second) {
