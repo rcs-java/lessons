@@ -4,16 +4,31 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator calc = new Calculator();
+        System.out.println("Input R for rectangle, C for circle!");
 
-        calc.number1 = sc.nextDouble();
-        calc.operator = sc.next();
+        String choice = sc.next();
 
-        if (calc.shouldReadSecondNumber()) {
-            calc.number2 = sc.nextDouble();
+        if (choice.equals("C")) {
+            double r = sc.nextDouble();
+            Circle c = new Circle();
+            c.radius = r;
+
+            System.out.println(c.getArea());
+            System.out.println(c.getPerimeter());
+        } else {
+            double w = sc.nextDouble();
+            double h = sc.nextDouble();
+
+            Rectangle r = new Rectangle();
+            r.width = w;
+            r.height = h;
+
+            System.out.println(r.getArea());
+            System.out.println(r.getPerimeter());
         }
 
-        double res = calc.calculate();
-        System.out.println(res);
+
+
+
     }
 }
