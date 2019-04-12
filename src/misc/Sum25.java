@@ -1,3 +1,5 @@
+package misc;
+
 public class Sum25 {
     public static void main(String args[]) {
         nextDigit("1", 1, 2);

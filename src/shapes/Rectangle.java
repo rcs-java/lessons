@@ -1,3 +1,5 @@
+package shapes;
+
 public class Rectangle extends Shape {
     public double width;
     public double height;

@@ -1,3 +1,5 @@
+package misc;
+
 public class Calculator {
 
     public double number1;

@@ -2,12 +2,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Advanced, optional extra task:
-- application outputs the count of each letter (ignore case)
-Note: given the limitations, this can be done using only arrays (no need for ArrayLists or HashMaps)
-         */
-
         Scanner sc = new Scanner(System.in);
         String word = sc.next();
         word = word.toLowerCase();
