@@ -1,25 +1,17 @@
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("If you like cats, press C!");
-        System.out.println("If you like dogs, press D!");
 
-        String choice = sc.next();
-        Pet pet;
+        int[] userInput = new int[5];
 
-        if (choice.equals("C")) {
-            pet = new Cat();
-        } else if (choice.equals("D")) {
-            pet = new Dog();
-        } else {
-            System.out.println("We do not support such fancy pets!");
-            return;
+        for (int i = 0; i < 5; i++) {
+            userInput[i] = sc.nextInt();
         }
 
-        String message = pet.getVoiceMessage();
-        System.out.println(message);
+        for (int inp : userInput) {
+            System.out.println(inp);
+        }
     }
 }
