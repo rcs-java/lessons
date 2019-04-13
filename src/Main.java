@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+    private static Scanner scField;
+
     public static void main(String[] args)
     {
-        // Login at 13:50
-
         // - if user exists, tell about failure
         // b) if they choose to log in
         // - ask for user name, password
@@ -19,8 +19,8 @@ public class Main {
         // (can still be done with a single file)
 
         System.out.println("Do you want to log in (L) or register (R)?");
-        Scanner sc = new Scanner(System.in);
-        String choice = sc.next();
+        scField = new Scanner(System.in);
+        String choice = scField.next();
         if (choice.equals("R")) {
             try {
                 registerUser();
@@ -31,20 +31,28 @@ public class Main {
                 System.out.println(ex.getMessage());
             }
         } else if (choice.equals("L")) {
-            // login
+            login();
         } else {
             System.out.println("Invalid choice!");
         }
     }
 
-    private static void registerUser() throws IOException, RuntimeException {
-        Scanner sc = new Scanner(System.in);
+    private static void login() {
         System.out.println("Please input your user name!");
-        String username = sc.next();
+        String username = scField.next();
         System.out.println("Please input your password!");
-        String password = sc.next();
+        String password = scField.next();
+
+
+    }
+
+    private static void registerUser() throws IOException, RuntimeException {
+        System.out.println("Please input your user name!");
+        String username = scField.next();
+        System.out.println("Please input your password!");
+        String password = scField.next();
         System.out.println("Please confirm your password!");
-        String confirmation = sc.next();
+        String confirmation = scField.next();
 
         if (!password.equals(confirmation)) {
             throw new RuntimeException("The passwords do not match!");
