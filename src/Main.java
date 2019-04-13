@@ -10,12 +10,6 @@ public class Main {
 
     public static void main(String[] args)
     {
-        // - if user exists, tell about failure
-
-        // hint: use file to store the credentials
-        // extra task: handle multiple users
-        // (can still be done with a single file)
-
         System.out.println("Do you want to log in (L) or register (R)?");
         scField = new Scanner(System.in);
         String choice = scField.next();
@@ -51,15 +45,17 @@ public class Main {
 
         File f = new File(fileName);
         Scanner fileScan = new Scanner(f);
-        String existingUsername = fileScan.nextLine();
-        String existingPass = fileScan.nextLine();
 
-        if (username.equals(existingUsername)
-            && existingPass.equals(password)) {
-            return true;
-        } else {
-            return false;
+        while (fileScan.hasNext()) {
+            String userPassPair = fileScan.nextLine();
+            String[] result = userPassPair.split(",");
+            if (username.equals(result[0])
+                && password.equals(result[1])) {
+                return true;
+            }
         }
+
+        return false;
     }
 
     private static void registerUser() throws IOException, RuntimeException {
@@ -70,15 +66,38 @@ public class Main {
         System.out.println("Please confirm your password!");
         String confirmation = scField.next();
 
+        if (userExists(username)) {
+            throw new RuntimeException("The user exists already!");
+        }
+
         if (!password.equals(confirmation)) {
             throw new RuntimeException("The passwords do not match!");
         }
 
         File f = new File(fileName);
-        FileWriter fw = new FileWriter(f);
-        fw.write(username);
-        fw.write(System.lineSeparator());
-        fw.write(password);
+        FileWriter fw = new FileWriter(f, true);
+        fw.write(username + "," + password + System.lineSeparator());
         fw.flush();
+    }
+
+    private static boolean userExists(String username) {
+        File f = new File(fileName);
+        Scanner fileScan;
+
+        try {
+            fileScan = new Scanner(f);
+        } catch (FileNotFoundException ex) {
+            return false;
+        }
+
+        while (fileScan.hasNext()) {
+            String userPassPair = fileScan.nextLine();
+            String[] result = userPassPair.split(",");
+            if (username.equals(result[0])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
