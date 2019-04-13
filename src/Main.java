@@ -1,18 +1,16 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scField;
+    private static String fileName = "userData.txt";
 
     public static void main(String[] args)
     {
         // - if user exists, tell about failure
-        // b) if they choose to log in
-        // - ask for user name, password
-        // - check if they match the file
-        // - tell if login successful
 
         // hint: use file to store the credentials
         // extra task: handle multiple users
@@ -31,19 +29,37 @@ public class Main {
                 System.out.println(ex.getMessage());
             }
         } else if (choice.equals("L")) {
-            login();
+            try {
+                if (login()) {
+                    System.out.println("Logged in successfully!");
+                } else {
+                    System.out.println("Incorrect username/password!");
+                }
+            } catch (FileNotFoundException ex) {
+                System.out.println("Please register before logging in!");
+            }
         } else {
             System.out.println("Invalid choice!");
         }
     }
 
-    private static void login() {
+    private static boolean login() throws FileNotFoundException {
         System.out.println("Please input your user name!");
         String username = scField.next();
         System.out.println("Please input your password!");
         String password = scField.next();
 
+        File f = new File(fileName);
+        Scanner fileScan = new Scanner(f);
+        String existingUsername = fileScan.nextLine();
+        String existingPass = fileScan.nextLine();
 
+        if (username.equals(existingUsername)
+            && existingPass.equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static void registerUser() throws IOException, RuntimeException {
@@ -58,7 +74,7 @@ public class Main {
             throw new RuntimeException("The passwords do not match!");
         }
 
-        File f = new File("userData.txt");
+        File f = new File(fileName);
         FileWriter fw = new FileWriter(f);
         fw.write(username);
         fw.write(System.lineSeparator());
